@@ -1,11 +1,9 @@
-# CodeAlpha AI Internship - Language Translation Tool 🌐
-
-[![CodeAlpha Internship](https://img.shields.io/badge/CodeAlpha-AI%20Internship-indigo?style=for-the-badge&logo=codeforces)](https://codealpha.tech/)
+ Language Translation Tool 🌐
 [![Python Version](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)](https://python.org)
 [![Flask](https://img.shields.io/badge/Framework-Flask%203.0+-green?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-A full-stack, responsive **Language Translation Tool** built for the **CodeAlpha AI Internship** task submission. Powered by Python (Flask) and `deep-translator` (Google Translate wrapper) on the backend, paired with a modern glassmorphic frontend utilizing the browser's native Web Speech API for Text-to-Speech (TTS) capabilities.
+A full-stack, responsive **Language Translation Tool** built Powered by Python (Flask) and `deep-translator` (Google Translate wrapper) on the backend, paired with a modern glassmorphic frontend utilizing the browser's native Web Speech API for Text-to-Speech (TTS) capabilities.
 
 ---
 
@@ -31,15 +29,15 @@ A full-stack, responsive **Language Translation Tool** built for the **CodeAlpha
 
 ```
 +-----------------------------------------------------------------------------------+
-|  🌐 CodeAlpha Translator               [API Online]   [History]   [Theme: Dark]   |
+|  🌐 Language Translator               [API Online]   [History]   [Theme: Dark]   |
 +-----------------------------------------------------------------------------------+
 |  [✨ Auto-detect     v]             [ 🔄 Swap ]             [ Spanish       v]    |
 +--------------------------------------------------+--------------------------------+
 |  SOURCE TEXT                                     |  TRANSLATION [✨ English]      |
-|  Hello, welcome to CodeAlpha AI internship.      |  Hola, bienvenido a las        |
+|  Hello, welcome to Language Translator           |  Hola, bienvenido a las        |
 |                                                  |  prácticas de CodeAlpha AI.    |
 |                                                  |                                |
-|  [||||||||||||..........]  44 / 5000 chars       |  [ Copy ]  [ Listen 🔊 ]       |
+|  [||||||||||||..........]   37/ 5000 chars       |  [ Copy ]  [ Listen 🔊 ]       |
 +--------------------------------------------------+--------------------------------+
 |                             [ ⚡ Translate Now ]  Ctrl + Enter                    |
 +-----------------------------------------------------------------------------------+
@@ -71,8 +69,8 @@ A full-stack, responsive **Language Translation Tool** built for the **CodeAlpha
 
 ### 1. Clone or Download Repository
 ```bash
-git clone https://github.com/your-username/CodeAlpha_LanguageTranslator.git
-cd CodeAlpha_LanguageTranslator
+git clone https://github.com/your-username/Language_Translator.git
+cd Language_Translator
 ```
 
 ### 2. Set Up Virtual Environment (Recommended)
@@ -200,4 +198,4 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information
 
 ---
 
-<p align="center">Submitted for <strong>CodeAlpha AI Internship</strong> &bull; Crafted with ❤️ by Student Developer</p>
+<p align="center"> Crafted with ❤️ by Student Developer</p>
