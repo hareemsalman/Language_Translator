@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Language Translation Tool</title>
+    <meta name="description" content="A real-time, responsive multi-language translation tool powered by Google Translate engine & Web Speech API .">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Top Navigation Header -->
+        <header class="app-header">
+            <div class="brand-container">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Language <span>Translator</span></h1>
+                    <p class="subtitle">  Real-time Neural Translation</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="status-badge" id="apiStatusBadge">
+                    <span class="status-dot green"></span>
+                    <span class="status-text">API Online</span>
+                </div>
+                <button class="icon-btn" id="historyToggleBtn" title="Translation History" aria-label="Translation History">
+                    <i class="fa-solid fa-history"></i>
+                </button>
+                <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Translation Workspace -->
+        <main class="translator-card">
+            <!-- Language Controls Bar -->
+            <div class="lang-controls-bar">
+                <div class="lang-select-wrapper">
+                    <label for="sourceLangSelect" class="sr-only">Source Language</label>
+                    <i class="fa-solid fa-globe select-icon"></i>
+                    <select id="sourceLangSelect" class="lang-select">
+                        <option value="auto" selected>✨ Auto-detect</option>
+                        <!-- Dynamic language options populated by JS -->
+                    </select>
+                </div>
+
+                <button id="swapLangBtn" class="swap-btn" title="Swap Languages" aria-label="Swap Languages">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                </button>
+
+                <div class="lang-select-wrapper">
+                    <label for="targetLangSelect" class="sr-only">Target Language</label>
+                    <i class="fa-solid fa-bullseye select-icon"></i>
+                    <select id="targetLangSelect" class="lang-select">
+                        <!-- Dynamic language options populated by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Workspace Input & Output Grid -->
+            <div class="workspace-grid">
+                <!-- Source Text Area Panel -->
+                <div class="panel source-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Source Text</span>
+                        <button class="text-action-btn" id="pasteBtn" title="Paste from Clipboard">
+                            <i class="fa-solid fa-paste"></i> Paste
+                        </button>
+                    </div>
+                    <div class="textarea-wrapper">
+                        <textarea id="sourceText" placeholder="Type, paste, or enter text here to translate..." maxlength="5000" spellcheck="true"></textarea>
+                        <button id="clearSourceBtn" class="clear-btn hidden" title="Clear text">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="char-count-container">
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" id="charProgressFill"></div>
+                            </div>
+                            <span class="char-count-text" id="charCounter">0 / 5000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Text Area Panel -->
+                <div class="panel target-panel">
+                    <div class="panel-header">
+                        <div class="detected-tag-wrapper">
+                            <span class="panel-title">Translation</span>
+                            <span class="detected-badge hidden" id="detectedBadge">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="detectedLangName">English</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="textarea-wrapper">
+                        <textarea id="targetText" readonly placeholder="Translation will appear here instantly..."></textarea>
+                        <!-- Loading Overlay Spinner -->
+                        <div class="loading-overlay hidden" id="loadingOverlay">
+                            <div class="spinner"></div>
+                            <span>Translating with AI engine...</span>
+                        </div>
+                    </div>
+                    <div class="panel-footer target-footer">
+                        <div class="action-buttons-group">
+                            <button class="action-btn" id="copyBtn" title="Copy Translation" disabled>
+                                <i class="fa-solid fa-copy"></i> <span>Copy</span>
+                            </button>
+                            <button class="action-btn" id="speakBtn" title="Listen Translation" disabled>
+                                <i class="fa-solid fa-volume-high"></i> <span>Listen</span>
+                            </button>
+                            <select id="voiceSelect" class="voice-select hidden" title="Select Voice Accent">
+                                <!-- Populated by Web Speech API -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Translate Action Trigger Bar -->
+            <div class="translate-action-bar">
+                <button id="translateBtn" class="primary-translate-btn">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Translate Now</span>
+                </button>
+                <span class="shortcut-hint"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> to translate</span>
+            </div>
+        </main>
+
+        <!-- Translation History Drawer Modal -->
+        <div class="history-drawer-overlay hidden" id="historyOverlay">
+            <aside class="history-drawer">
+                <div class="history-header">
+                    <h2><i class="fa-solid fa-clock-rotate-left"></i> Translation History</h2>
+                    <button class="close-btn" id="closeHistoryBtn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="history-body" id="historyList">
+                    <!-- Dynamic history items -->
+                    <div class="empty-history">
+                        <i class="fa-solid fa-inbox"></i>
+                        <p>No recent translations yet.</p>
+                    </div>
+                </div>
+                <div class="history-footer">
+                    <button class="danger-btn" id="clearHistoryBtn"><i class="fa-solid fa-trash-can"></i> Clear History</button>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Floating Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+
+    <!-- JS Application Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
