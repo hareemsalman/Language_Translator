@@ -172,7 +172,7 @@ All tests cover:
 ## 📂 Project Structure
 
 ```
-CodeAlpha_LanguageTranslator/
+Language_Translator/
 ├── app.py                   # Flask API Server & Translation Controller
 ├── test_app.py              # Pytest Unit Test Suite
 ├── requirements.txt         # Project Dependencies
